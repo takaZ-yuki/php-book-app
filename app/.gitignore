@@ -38,3 +38,9 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+
+# Laravel Mix specific files #
+##############################
+/node_modules
+/webroot/js/
+/webroot/css/

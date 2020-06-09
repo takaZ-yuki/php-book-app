@@ -26,11 +26,11 @@
 
     <div class="paginator">
         <ul class="pagination">
-        <?= $this->Paginator->first('<< 最初へ') ?>
-        <?= $this->Paginator->prev('< 前へ') ?>
-        <?= $this->Paginator->numbers() ?>
-        <?= $this->Paginator->next('次へ >') ?>
-        <?= $this->Paginator->last('最後へ >>') ?>
+            <?= $this->Paginator->first('<< 最初へ') ?>
+            <?= $this->Paginator->prev('< 前へ') ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next('次へ >') ?>
+            <?= $this->Paginator->last('最後へ >>') ?>
         </ul>
     </div>
 <?php endif; ?>
