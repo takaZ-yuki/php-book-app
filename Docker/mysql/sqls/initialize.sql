@@ -1,32 +1,43 @@
 CREATE DATABASE qa_app;
 use qa_app;
 
-create table `answers` (
-  `id` int(10) unsigned not null auto_increment,
-  `question_id` int(10) unsigned not null,
-  `user_id` int(10) unsigned not null,
-  `body` varchar(255) not null,
-  `created` datetime not null,
-  `modified` datetime not null,
-  primary key (`id`)
-) engine=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `answers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `question_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `body` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-create table question (
-  `id` int(10) unsigned not null auto_increment,
-  `user_id` int(10) unsigned not null,
-  `body` varchar(255) not null,
-  `created` datetime not null,
-  `modified` datetime not null,
-  primary key (`id`)
-) engine=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `questions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `body` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-create table users (
-  `id` int(10) unsigned not null auto_increment,
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(16) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nickname` varchar(32) NOT NULL,
-  `created` datetime not null,
-  `modified` datetime not null,
-  primary key (`id`),
-  unique key `username` (`username`)
-) engine=InnoDB DEFAULT CHARSET=utf8mb4;
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO questions (user_id, body, created, modified)
+VALUES
+  (1, '普段PHPのフレームワークって何使ってますか？', now(), now()),
+  (1, 'PHPにあったらいいなと思う機能ってありますか？', now(), now()),
+  (1, 'みなさんはいつからPHPを書いてますか？', now(), now());
+
+INSERT INTO answers (question_id, user_id, body, created, modified)
+VALUES
+  (3, 1, '私はLaravelです！あとたまにYiiを使っています！', now(), now()),
+  (3, 1, '僕はCakePHP！', now(), now());
