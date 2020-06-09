@@ -1,12 +1,13 @@
 version: '3'
 services:
-  web:
+  php-book-app-web:
     container_name: php-book-app-web
     build:
       context: .
       dockerfile: ./Docker/php/Dockerfile
     volumes:
       - .:/var/www/html:cached
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     environment:
       - APP_DEFAULT_LOCALE=ja_JP
       - APP_DEFAULT_TIMEZONE=Asia/Tokyo
@@ -17,8 +18,10 @@ services:
     command: bash -c "sh docker-init-setup.sh && apache2-foreground"
     ports:
       - "5000:80"
-  db:
+
+  php-book-app-db:
     container_name: php-book-app-db
+    restart: always
     build:
       context: .
       dockerfile: ./Docker/mysql/Dockerfile
@@ -29,3 +32,34 @@ services:
       - MYSQL_ROOT_PASSWORD=secret
     ports:
       - "13306:3306"
+
+  php-book-app-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: php-book-app-phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=php-book-app-db
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+    links:
+      - php-book-app-db
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
+
+  php-book-app-smtp:
+    image: schickling/mailcatcher
+    container_name: php-book-app-smtp
+    ports:
+     - "1080:1080"
+     - "25:1025"
+
+  php-book-app-watch:
+    image: node:12
+    container_name: php-book-app-watch
+    working_dir: /home/app
+    command: "npm run watch"
+    volumes:
+      - ./app:/home/app
