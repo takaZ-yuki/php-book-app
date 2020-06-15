@@ -1,4 +1,4 @@
-<h2 class="mb-3"><i class="fas fa-list"></i></h2>
+<h2 class="mb-3"><i class="fas fa-list"></i> 質問広場</h2>
 
 <?php if ($questions->isEmpty()): ?>
     <div class="card mb-2">
@@ -12,13 +12,16 @@
         <div class="card mb-2">
             <div class="card-body">
                 <h5 class="card-title">
-                    <i class="fas fa-user-circle"></i> <?='たろう' //@TODO ユーザ管理機能実装時に修正する ?>
+                    <i class="fas fa-user-circle"></i> <?='たろう' //TODO ユーザ管理機能実装時に修正する ?>
                 </h5>
                 <p class="card-text"><?= nl2br(h($question->body)) ?></p>
                 <p class="card-subtitle mb-2 text-muted">
                     <small><?= h($question->created) ?></small>
+                    <small>
+                    <i class="fas fa-comment-dots"></i> <?= $this->Number->format($question->answered_count) ?>
+                    </small>
                 </p>
-                <?= $this->Html->link('詳細へ', ['action' => 'view', $question->id], ['class' => 'card-link']) ?>
+                <?= $this->Html->link('詳細へ', ['action' => 'view', $question->id], ['class' => 'card-link'], ['class' => 'card-link']) ?>
                 <?= $this->Form->postLink('削除する', ['action' => 'delete', $question->id], ['confirm' => '質問を削除します。よろしいですか？'], ['class' => 'cars-link']); ?>
             </div>
         </div>
