@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const base = 'webroot';
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +12,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.setPublicPath('webroot')
-    .js('src/Scripts/main.js', 'js')
-    .sass('src/Styles/app.scss', 'css')
-    .sourceMaps().webpackConfig({ devtool: 'source-map' });
+mix.setPublicPath(base).js('src/Scripts/main.js', 'js').version();
+
+mix.setPublicPath(base).sass('src/Styles/app.scss', 'css').version();
+
+// Browsersyncリロード
+mix.browserSync({
+    proxy: {
+        target: 'http://php-book-app-web', //nginxのコンテナサービス名と一致させる
+    },
+    files: [
+        "./config/**/*",
+        "./src/**/*",
+        "./webroot/**/*",
+    ],
+    open: false,
+    reloadOnRestart: true,
+});
