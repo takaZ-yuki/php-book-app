@@ -31,7 +31,6 @@ require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
 use Cake\Cache\Cache;
 use Cake\Console\ConsoleErrorHandler;
-use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Core\Plugin;
@@ -49,6 +48,10 @@ use Cake\Utility\Security;
  * Uncomment block of code below if you want to use `.env` file during development.
  * You should copy `config/.env.default to `config/.env` and set/modify the
  * variables as required.
+ *
+ * It is HIGHLY discouraged to use a .env file in production, due to security risks
+ * and decreased performance on each request. The purpose of the .env file is to emulate
+ * the presence of the environment variables like they would be present in production.
  */
 // if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
 //     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
@@ -68,7 +71,7 @@ use Cake\Utility\Security;
  */
 try {
     Configure::config('default', new PhpConfig());
-    Configure::load('app', 'default', false);
+    Configure::load('app', 'default', env('DEBUG', false));
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -89,6 +92,7 @@ if (Configure::read('debug')) {
     Configure::write('Cache._cake_core_.duration', '+2 minutes');
     // disable router cache during development
     Configure::write('Cache._cake_routes_.duration', '+2 seconds');
+    Plugin::load('DebugKit', ['bootstrap' => env('DEBUG', false), 'routes' => env('DEBUG', false)]);
 }
 
 /*

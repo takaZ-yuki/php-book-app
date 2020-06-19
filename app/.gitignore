@@ -14,6 +14,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+.directory
 
 # Tool specific files #
 #######################
@@ -36,7 +37,6 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
-
 # Laravel Mix specific files #
 ##############################
 /node_modules
