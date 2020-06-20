@@ -1,2 +1,4 @@
 /Docker/mysql/data/*
 !/Docker/mysql/data/.gitkeep
+/Docker/php/xdebug/*
+!/Docker/php/xdebug/.gitkeep
