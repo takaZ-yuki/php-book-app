@@ -45,7 +45,7 @@ services:
     links:
       - php-book-app-db
     ports:
-      - 8000:80
+      - 8080:80
     volumes:
       - /sessions
 
@@ -58,12 +58,12 @@ services:
 
   swagger:
     image: swaggerapi/swagger-editor
-    volumes:
-      - ./docker/swagger/${SWAGGER_YAML}:/usr/share/nginx/html/${SWAGGER_YAML}
-    environment:
-      API_URL: ${SWAGGER_YAML}
+    # volumes:
+    #   - ./docker/swagger/${SWAGGER_YAML}:/usr/share/nginx/html/${SWAGGER_YAML}
+    # environment:
+    #   API_URL: ${SWAGGER_YAML}
     ports:
-      - 8080:8080
+      - 8000:8080
 
   php-book-app-watch:
     image: node:12
