@@ -100,5 +100,3 @@ class QuestionsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
-
-?>

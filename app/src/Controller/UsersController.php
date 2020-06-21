@@ -16,6 +16,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->Auth->allow(['add']);
     }
 
     /**
@@ -37,7 +38,4 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
     }
-
 }
-
-?>

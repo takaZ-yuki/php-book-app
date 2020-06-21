@@ -56,22 +56,20 @@ class AnswersController extends AppController
      * 回答削除処理
      *
      * @param integer $id 回答ID
-     * @return void \Cake\Http\Response|null 回答削除後に質問詳細画面へ遷移する
+     * @return void \Cake\ÏHttp\Response|null 回答削除後に質問詳細画面へ遷移する
      */
     public function delete(int $id)
     {
-      $answer = $this->Answers->get($id);
-      $questionId = $answer->question_id;
-      // TODO 回答を削除できるのは回答登録者のみとする
+        $answer = $this->Answers->get($id);
+        $questionId = $answer->question_id;
+        // TODO 回答を削除できるのは回答登録者のみとする
 
-      if ($this->Answers->delete($answer)) {
-        $this->Flash->success('回答を削除しました');
-      } else {
-        $this->Flash->success('回答の削除に失敗しました');
-      }
+        if ($this->Answers->delete($answer)) {
+            $this->Flash->success('回答を削除しました');
+        } else {
+            $this->Flash->success('回答の削除に失敗しました');
+        }
 
-      return $this->redirect(['controller' => 'Questions', 'action' => 'view', $questionId]);
+        return $this->redirect(['controller' => 'Questions', 'action' => 'view', $questionId]);
     }
 }
-
-?>
