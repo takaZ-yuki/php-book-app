@@ -1,4 +1,3 @@
-#FROM php:7.2-apache
 FROM php:7.4.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/app/webroot

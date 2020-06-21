@@ -15,6 +15,7 @@ services:
       - DATABASE_USER=root
       - DATABASE_PASS=secret
       - DATABASE_NAME=qa_app
+      - DEBUG=true
     command: bash -c "sh docker-init-setup.sh && apache2-foreground"
     ports:
       - "80:80"
