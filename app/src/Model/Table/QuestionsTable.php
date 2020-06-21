@@ -3,7 +3,6 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
-use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 
 /**
@@ -52,23 +51,6 @@ class QuestionsTable extends Table
             ->maxLength('body', 140, '質問愛用は140字以内で入力してください');
 
         return $validator;
-    }
-
-    /**
-     * ルールチェッカーを作成する
-     *
-     * @param \Cake\ORM\RulesChecker $rules ルールチェッカーのオブジェクト
-     * @return \Cake\ORM\RulesChecker ルールチェッカーのオブジェクト
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->existsIn(
-            ['question_id'],
-            'Questions',
-            '質問が既に削除されているため回答することが出来ません'
-        ));
-
-        return $rules;
     }
 
     /**
