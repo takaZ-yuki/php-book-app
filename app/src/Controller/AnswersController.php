@@ -40,7 +40,7 @@ class AnswersController extends AppController
             return $this->redirect(['controller' => 'Questions', 'action' => 'view', $answer->question_id]);
         }
 
-        $answer->user_id = 1; // TODO ユーザー管理機能実装時に修正する
+        $answer->user_id = $this->Auth->user('id');
         $answer->created = date("Y/m/d H:i:s");
         $answer->modified = date("Y/m/d H:i:s");
         if ($this->Answers->save($answer)) {

@@ -27,6 +27,11 @@ class AnswersTable extends Table
             'foreignKey' => 'question_id',
             'joinType' => 'INNER'
         ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
         /**
