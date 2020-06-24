@@ -19,7 +19,4 @@ class Question extends Entity
         'created' => true,
         'modified' => true
     ];
-
 }
-
-?>

@@ -69,5 +69,4 @@ class QuestionsTable extends Table
 
         return $query;
     }
-
 }
