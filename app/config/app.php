@@ -257,37 +257,14 @@ return [
             'driver' => Mysql::class,
             'persistent' => false,
             'host' => env('DATABASE_HOST', 'localhost'),
-            'username' => env('DATABASE_USER', 'my_app'),
+            'username' => env('DATABASE_USER', 'root'),
             'password' => env('DATABASE_PASS', 'secret'),
-            'database' => env('DATABASE_NAME', 'my_app'),
-            /*
-             * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
-             */
-            //'encoding' => 'utf8mb4',
+            'database' => env('DATABASE_NAME', 'qa_app'),
             'timezone' => 'UTC',
             'flags' => [],
             'cacheMetadata' => true,
             'log' => true,
-
-            /**
-             * Set identifier quoting to true if you are using reserved words or
-             * special characters in your table or column names. Enabling this
-             * setting will result in queries built using the Query Builder having
-             * identifiers quoted when creating SQL. It should be noted that this
-             * decreases performance because each query needs to be traversed and
-             * manipulated before being executed.
-             */
             'quoteIdentifiers' => false,
-
-            /**
-             * During development, if using MySQL < 5.6, uncommenting the
-             * following line could boost the speed at which schema metadata is
-             * fetched from the database. It can also be set directly with the
-             * mysql configuration directive 'innodb_stats_on_metadata = 0'
-             * which is the recommended value in production environments
-             */
-            //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-
             'url' => env('DATABASE_URL', null),
         ],
 
@@ -298,17 +275,14 @@ return [
             'className' => Connection::class,
             'driver' => Mysql::class,
             'persistent' => false,
-            'host' => 'localhost',
-            //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_myapp',
-            //'encoding' => 'utf8mb4',
+            'host' => env('DATABASE_HOST', 'localhost'),
+            'username' => env('DATABASE_USER', 'root'),
+            'password' => env('DATABASE_PASS', 'secret'),
+            'database' => env('DATABASE_NAME', 'qa_app'),
             'timezone' => 'UTC',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
             'log' => false,
-            //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
             'url' => env('DATABASE_TEST_URL', null),
         ],
     ],
