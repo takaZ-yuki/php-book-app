@@ -278,7 +278,7 @@ return [
             'host' => env('DATABASE_HOST', 'localhost'),
             'username' => env('DATABASE_USER', 'root'),
             'password' => env('DATABASE_PASS', 'secret'),
-            'database' => env('DATABASE_NAME', 'qa_app'),
+            'database' => env('TEST_DATABASE_NAME', 'qa_test_app'),
             'timezone' => 'UTC',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,

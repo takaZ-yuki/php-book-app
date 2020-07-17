@@ -41,3 +41,6 @@ INSERT INTO answers (question_id, user_id, body, created, modified)
 VALUES
   (3, 1, '私はLaravelです！あとたまにYiiを使っています！', now(), now()),
   (3, 1, '僕はCakePHP！', now(), now());
+
+
+CREATE DATABASE qa_test_app;

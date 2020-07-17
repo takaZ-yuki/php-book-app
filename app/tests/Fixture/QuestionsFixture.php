@@ -9,7 +9,7 @@ use Cake\TestSuite\Fixture\TestFixture;
 class QuestionsFixture extends TestFixture
 {
     /**
-     * テーブルのフィールド情報
+     * Fields
      *
      * @var array
      */
@@ -28,10 +28,11 @@ class QuestionsFixture extends TestFixture
             'collation' => 'utf8mb4_general_ci'
         ],
     ];
-    // @codingStandardsIgnoreEnd
 
     /**
-     * @inheritdoc
+     * Init method
+     *
+     * @return void
      */
     public function init()
     {

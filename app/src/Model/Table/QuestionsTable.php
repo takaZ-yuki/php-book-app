@@ -1,47 +1,60 @@
 <?php
-
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * Questions Model
+ *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\AnswersTable&\Cake\ORM\Association\HasMany $Answers
+ *
+ * @method \App\Model\Entity\Question get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Question newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Question[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Question|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Question saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Question patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Question[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Question findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class QuestionsTable extends Table
 {
-
     /**
-     * @inheritDoc
+     * Initialize method
      *
-     * @param array $config
+     * @param array $config The configuration for the Table.
      * @return void
      */
     public function initialize(array $config)
     {
         parent::initialize($config);
 
-        $this->setTable('questions'); // 使用されるテーブル名
-        $this->setDisplayField('id'); // list形式でデータ取得される際に使用されるカラム
-        $this->setPrimaryKey('id'); // プライマリキーとなるカラム名
+        $this->setTable('questions');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp'); // created及びmodifiedカラムを自動設定する
-
-        $this->hasMany('Answers', [
-            'foreignKey' => 'question_id'
-        ]);
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Answers', [
+            'foreignKey' => 'question_id',
         ]);
     }
 
     /**
-     * バリデーションルールの定義
+     * Default validation rules.
      *
-     * @param Cake\Validation\Validator $validator バリーデーションインスタンス
-     * @return Cake\Validation\Validator バリデーションインスタンス
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator)
     {
@@ -59,19 +72,33 @@ class QuestionsTable extends Table
     }
 
     /**
-     * 回答付きの質問一覧を取得する
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
      *
-     * @return void \Cake\ORM\Query 回答付きの質問一覧クエリ
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
      */
-    public function findQuestionsWithAnsweredCount()
+    public function buildRules(RulesChecker $rules)
     {
-        $query = $this->find();
-        $query
-            ->select(['answered_count' => $query->func()->count('Answers.id')])
-            ->leftJoinWith('Answers')
-            ->group(['Questions.id'])
-            ->enableAutoFields(true);
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
 
-        return $query;
+        return $rules;
     }
+
+    /*
+    * 回答付きの質問一覧を取得する
+    *
+    * @return void \Cake\ORM\Query 回答付きの質問一覧クエリ
+    */
+   public function findQuestionsWithAnsweredCount()
+   {
+       $query = $this->find();
+       $query
+           ->select(['answered_count' => $query->func()->count('Answers.id')])
+           ->leftJoinWith('Answers')
+           ->group(['Questions.id'])
+           ->enableAutoFields(true);
+
+       return $query;
+   }
 }
